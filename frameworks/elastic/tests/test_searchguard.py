@@ -24,18 +24,18 @@ pytestmark = [
 def sg_internal_users_path(tmp_path) -> str:
     path = tmp_path / "sg_internal_users.yml"
     sg_internal_users_config = (
-        '_sg_meta:\n'
+        "_sg_meta:\n"
         '  type: "internalusers"\n'
-        '  config_version: 2\n'
-        'admin:\n'
+        "  config_version: 2\n"
+        "admin:\n"
         # password: admin_password
         '  hash: "$2y$12$Pd3kIQD1WgaKpekPyMkUi.jmBDF3QDmPIEUg37wXCRufZZQOnYYYW"\n'
-        '  reserved: true\n'
+        "  reserved: true\n"
         '  backend_roles: ["admin"]\n'
-        'kibanaserver:\n'
+        "kibanaserver:\n"
         # password: kibanaserver_password
         '  hash: "$2y$12$lrwJYnjrlTGgOcf7Kd6xXOHIbkqFWBO3qgqyLYlEwIuRM3CfgL5fG"\n'
-        '  reserved: true\n'
+        "  reserved: true\n"
     )
 
     path.write_text(sg_internal_users_config)
@@ -68,19 +68,9 @@ def elastic_service(service_account: Dict[str, Any], sg_internal_users_path: str
                     "service_account_secret": service_account["secret"],
                     "security": {"transport_encryption": {"enabled": True}},
                 },
-                "data_nodes": {
-                    "count": 1,
-                    "mem" : 2048,
-                    "heap": { "size" : 1024 }
-                },
-                "master_nodes": {
-                    "mem" : 1024,
-                    "heap": { "size" : 512 }
-                },
-                "coordinator_nodes": {
-                    "mem" : 1024,
-                    "heap": { "size" : 512 }
-                },
+                "data_nodes": {"count": 1, "mem": 2048, "heap": {"size": 1024}},
+                "master_nodes": {"mem": 1024, "heap": {"size": 512}},
+                "coordinator_nodes": {"mem": 1024, "heap": {"size": 512}},
                 "elasticsearch": {
                     "health_user": "admin",
                     "health_user_password": "admin_password",
